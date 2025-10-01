@@ -1,0 +1,21 @@
+# Production dependencies
+# Install with: pip install -r requirements.txt
+
+# Django framework
+Django==5.2.6
+
+# Django REST Framework
+djangorestframework==3.16.1
+
+# Environment variable management
+python-decouple==3.8
+
+# Database URL parsing
+dj-database-url==3.0.1
+
+# Static file serving
+whitenoise==6.8.2
+
+# Django dependencies
+asgiref==3.9.2
+sqlparse==0.5.3

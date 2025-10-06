@@ -1,0 +1,30 @@
+FORM STATUS UPDATE
+
+Hello {{ user.get_full_name|default:user.username }},
+
+Your form submission has been updated.
+
+Form Details:
+- Form Title: {{ form.title }}
+- Current Status: {{ status }}
+- Last Updated: {{ form.updated_at|date:"F j, Y, g:i A" }}
+
+{% if admin_notes %}
+Administrator Notes:
+{{ admin_notes }}
+{% endif %}
+
+{% if notification_type == 'approved' %}
+CONGRATULATIONS!
+Your form has been approved. You should receive further instructions soon.
+{% elif notification_type == 'rejected' %}
+FORM REJECTED
+Unfortunately, your form has been rejected. Please review the administrator notes above for more information.
+{% elif notification_type == 'requires_changes' %}
+CHANGES REQUIRED
+Your form requires some changes before it can be approved. Please review the administrator notes and resubmit your form.
+{% endif %}
+
+---
+This is an automated notification from the Onboarding Form System.
+If you have any questions, please contact our support team.

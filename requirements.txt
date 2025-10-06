@@ -19,3 +19,6 @@ whitenoise==6.8.2
 # Django dependencies
 asgiref==3.9.2
 sqlparse==0.5.3
+
+# File validation
+python-magic==0.4.27

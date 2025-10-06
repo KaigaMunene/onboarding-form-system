@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>New Form Submission</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      .content {
+        background-color: #ffffff;
+        padding: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+      }
+      .footer {
+        margin-top: 20px;
+        padding: 10px;
+        font-size: 12px;
+        color: #6c757d;
+      }
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      .status {
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-weight: bold;
+      }
+      .status.submitted {
+        background-color: #d4edda;
+        color: #155724;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>New Form Submission</h2>
+        <p>
+          A new {{ form_type }} has been submitted and requires your review.
+        </p>
+      </div>
+
+      <div class="content">
+        <h3>Form Details</h3>
+        <table style="width: 100%; border-collapse: collapse">
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              <strong>Form Type:</strong>
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              {{ form_type }}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              <strong>Title:</strong>
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              {{ form.title }}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              <strong>Submitted By:</strong>
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              {{ submitted_by.get_full_name|default:submitted_by.username }}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              <strong>Email:</strong>
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              {{ submitted_by.email }}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              <strong>Status:</strong>
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              <span class="status submitted"
+                >{{ form.get_status_display }}</span
+              >
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              <strong>Submission Date:</strong>
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              {{ submission_date|date:"F j, Y, g:i A" }}
+            </td>
+          </tr>
+        </table>
+
+        {% if form.description %}
+        <h4>Description</h4>
+        <p>{{ form.description }}</p>
+        {% endif %}
+
+        <div style="margin-top: 20px; text-align: center">
+          <a href="{{ admin_url }}" class="btn">Review Form in Admin</a>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>
+          This is an automated notification from the Onboarding Form System.
+        </p>
+        <p>Please do not reply to this email.</p>
+      </div>
+    </div>
+  </body>
+</html>

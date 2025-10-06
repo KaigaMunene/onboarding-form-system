@@ -1,0 +1,22 @@
+NEW FORM SUBMISSION
+
+A new {{ form_type }} has been submitted and requires your review.
+
+Form Details:
+- Form Type: {{ form_type }}
+- Title: {{ form.title }}
+- Submitted By: {{ submitted_by.get_full_name|default:submitted_by.username }}
+- Email: {{ submitted_by.email }}
+- Status: {{ form.get_status_display }}
+- Submission Date: {{ submission_date|date:"F j, Y, g:i A" }}
+
+{% if form.description %}
+Description:
+{{ form.description }}
+{% endif %}
+
+Please log in to the admin panel to review this form.
+
+---
+This is an automated notification from the Onboarding Form System.
+Please do not reply to this email.

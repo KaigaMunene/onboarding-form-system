@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Form Status Update</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+      }
+      .content {
+        background-color: #ffffff;
+        padding: 20px;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+      }
+      .footer {
+        margin-top: 20px;
+        padding: 10px;
+        font-size: 12px;
+        color: #6c757d;
+      }
+      .status {
+        padding: 5px 10px;
+        border-radius: 3px;
+        font-weight: bold;
+      }
+      .status.approved {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      .status.rejected {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+      .status.requires_changes {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+      .status.under_review {
+        background-color: #d1ecf1;
+        color: #0c5460;
+      }
+      .admin-notes {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-left: 4px solid #007bff;
+        margin: 15px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>Form Status Update</h2>
+        <p>Hello {{ user.get_full_name|default:user.username }},</p>
+        <p>Your form submission has been updated.</p>
+      </div>
+
+      <div class="content">
+        <h3>Form Details</h3>
+        <table style="width: 100%; border-collapse: collapse">
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              <strong>Form Title:</strong>
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              {{ form.title }}
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              <strong>Current Status:</strong>
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              <span class="status {{ form.status }}">{{ status }}</span>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              <strong>Last Updated:</strong>
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid #dee2e6">
+              {{ form.updated_at|date:"F j, Y, g:i A" }}
+            </td>
+          </tr>
+        </table>
+
+        {% if admin_notes %}
+        <div class="admin-notes">
+          <h4>Administrator Notes:</h4>
+          <p>{{ admin_notes|linebreaks }}</p>
+        </div>
+        {% endif %} {% if notification_type == 'approved' %}
+        <div
+          style="
+            background-color: #d4edda;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+          "
+        >
+          <h4 style="color: #155724; margin: 0 0 10px 0">Congratulations!</h4>
+          <p style="margin: 0; color: #155724">
+            Your form has been approved. You should receive further instructions
+            soon.
+          </p>
+        </div>
+        {% elif notification_type == 'rejected' %}
+        <div
+          style="
+            background-color: #f8d7da;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+          "
+        >
+          <h4 style="color: #721c24; margin: 0 0 10px 0">Form Rejected</h4>
+          <p style="margin: 0; color: #721c24">
+            Unfortunately, your form has been rejected. Please review the
+            administrator notes above for more information.
+          </p>
+        </div>
+        {% elif notification_type == 'requires_changes' %}
+        <div
+          style="
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+          "
+        >
+          <h4 style="color: #856404; margin: 0 0 10px 0">Changes Required</h4>
+          <p style="margin: 0; color: #856404">
+            Your form requires some changes before it can be approved. Please
+            review the administrator notes and resubmit your form.
+          </p>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="footer">
+        <p>
+          This is an automated notification from the Onboarding Form System.
+        </p>
+        <p>If you have any questions, please contact our support team.</p>
+      </div>
+    </div>
+  </body>
+</html>
